@@ -1,0 +1,7 @@
+{
+    "predef": [
+        "$"
+    ],
+    "strict": true,
+    "esnext": true
+}
