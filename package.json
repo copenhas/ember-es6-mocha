@@ -1,12 +1,12 @@
 {
-  "name": "world-builder",
+  "name": "ember-es6-mocha",
   "version": "0.0.0",
-  "description": "A graphical MUD world builder",
+  "description": "A project template for ember.js with es6 modules and mocha testing",
   "private": true,
   "scripts": {
     "test": "grunt testem:ci"
   },
-  "author": "",
+  "author": "Sean Copenhaver <sean.copenhaver@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "grunt": "~0.4.2",
