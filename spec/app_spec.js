@@ -5,18 +5,19 @@
  */
 var expect = chai.expect;
 
-describe('mocha with ember testing', function () {
-"use strict";
+describe('mocha with ember testing', function() {
+    "use strict";
 
-    beforeEach(function () {
+    beforeEach(function() {
         visit('/');
     });
 
-    afterEach(function () {
+    afterEach(function() {
         App.reset();
     });
 
-    it('renders and can use ember test helpers', function () {
-        expect(find('.jumbotron', '#ember-test-fixture')).to.exist;
+    it('renders and can use ember test helpers', function() {
+        expect(find('.jumbotron', '#ember-test-fixture'))
+            .to.exist;
     });
 });

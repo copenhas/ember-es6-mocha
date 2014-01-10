@@ -1,7 +1,10 @@
-$(function () {
-"use strict";
+$(function() {
+    "use strict";
 
-    $('<div/>', { 'id': 'ember-test-fixture' }).appendTo('body');
+    $('<div/>', {
+        'id': 'ember-test-fixture'
+    })
+        .appendTo('body');
 });
 
 Ember.Test.adapter = Ember.Test.MochaAdapter.create();

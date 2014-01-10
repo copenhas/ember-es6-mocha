@@ -24,6 +24,7 @@ module.exports = function(grunt) {
                 files: ['app/**/*.js', 'spec/**/*.js'],
                 tasks: [
                     'lock',
+                    'jsbeautifier',
                     'jshint',
                     'transpile',
                     'fileblocks:dev',
@@ -66,8 +67,7 @@ module.exports = function(grunt) {
                     'vendor/ember-mocha-adapter/adapter.js',
                     'vendor/loader.js',
                     'vendor/ember-resolver/dist/ember-resolver.js',
-                    '_build/assets/js/templates.js',
-                    '_build/assets/js/**/*.js',
+                    '_build/**/*.*',
                     'spec/init.js',
                     'spec/**/*_spec.js'
                 ],
@@ -82,38 +82,6 @@ module.exports = function(grunt) {
                 }
             }
         },
-        fileblocks: {
-            dev: {
-                src: 'app/index.html',
-                dest: '_build/index.html',
-                blocks: {
-                    app: {
-                        src: '**/*.js',
-                        cwd: '_build/assets/js',
-                        prefix: '/assets/js'
-                    },
-                    styles: {
-                        src: '**/*.css',
-                        cwd: '_build/assets/css',
-                        prefix: '/assets/css'
-                    }
-                }
-            }
-        },
-        transpile: {
-            app: {
-                type: 'amd',
-                moduleName: function (path) {
-                    return 'app/' + path;
-                },
-                files: [{
-                    expand: true,
-                    cwd: 'app/',
-                    src: ['**/*.js'],
-                    dest: '_build/assets/js'
-                }]
-            }
-        },
         jshint: {
             app: {
                 src: ['app/**/*.js'],
@@ -123,6 +91,12 @@ module.exports = function(grunt) {
                 src: ['spec/**/*.js'],
                 options: { jshintrc: '.jshintrc'}
             }
+        },
+        jsbeautifier: {
+            options: {
+                config: '.jsbeautifyrc'
+            },
+            src: ['app/**/*.js', 'spec/**/*.js']
         },
         less: {
             dev: {
@@ -148,6 +122,38 @@ module.exports = function(grunt) {
                     '_build/assets/js/templates.js': 'app/templates/**/*.hbs'
                 }
             }
+        },
+        transpile: {
+            app: {
+                type: 'amd',
+                moduleName: function (path) {
+                    return 'app/' + path;
+                },
+                files: [{
+                    expand: true,
+                    cwd: 'app/',
+                    src: ['**/*.js'],
+                    dest: '_build/assets/js'
+                }]
+            }
+        },
+        fileblocks: {
+            dev: {
+                src: 'app/index.html',
+                dest: '_build/index.html',
+                blocks: {
+                    app: {
+                        src: '**/*.js',
+                        cwd: '_build/assets/js',
+                        prefix: '/assets/js'
+                    },
+                    styles: {
+                        src: '**/*.css',
+                        cwd: '_build/assets/css',
+                        prefix: '/assets/css'
+                    }
+                }
+            }
         }
     });
 
@@ -161,12 +167,14 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-es6-module-transpiler');
     grunt.loadNpmTasks('grunt-notify');
     grunt.loadNpmTasks('grunt-file-blocks');
+    grunt.loadNpmTasks('grunt-jsbeautifier');
 
     grunt.registerTask('default', [
         'build:dev'
     ]);
 
     grunt.registerTask('build:dev', [
+        'jsbeautifier',
         'jshint',
         'less:dev',
         'transpile',

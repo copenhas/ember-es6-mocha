@@ -10,4 +10,5 @@ var App = Ember.Application.extend({
     Resolver: Resolver['default']
 });
 
-export default App;
+export
+default App;
